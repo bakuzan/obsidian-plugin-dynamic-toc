@@ -27,9 +27,24 @@ function getIndicator(
   options: TableOptions
 ) {
   const defaultIndicator = (options.style === "number" && "1.") || "-";
-  if (!options.varied_style) return defaultIndicator;
+  if (!options.varied_style) {
+    return defaultIndicator;
+  }
+
+  const levelStyles = options.level_styles
+    ? options.level_styles.split(",")
+    : [];
+
+  if (levelStyles.length) {
+    const ls = levelStyles[heading.level - firstLevel];
+    return ls === "number" ? "1." : "-";
+  }
+
   // if the heading is at the same level as the first heading and varied_style is true, then only set the first indicator to the selected style
-  if (heading.level === firstLevel) return defaultIndicator;
+  if (heading.level === firstLevel) {
+    return defaultIndicator;
+  }
+
   return options.style === "number" ? "-" : "1.";
 }
 

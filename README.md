@@ -201,6 +201,26 @@ Without the option enabled:
 With the option enabled:
 ![](media/preserve-nested-numbering-on.jpg)
 
+### Level Styles
+
+> ⚠️ This option requires the option varied_style be set to true.
+
+You can provide specific styling per level with a comma separated list of style options in the table of contents by using the Level Styles option inline inside a codeblock for example:
+
+````markdown
+```toc
+title: "## Table of Contents"
+varied_style: true
+level_styles: bullet,number,bullet
+```
+````
+
+Without the option populated:
+![](media/level-styles-off.jpg)
+
+With the option populated as per the example:
+![](media/level-styles-on.jpg)
+
 ## Contributing
 
 ```bash

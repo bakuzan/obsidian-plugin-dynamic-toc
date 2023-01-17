@@ -8,6 +8,7 @@ export interface TableOptions {
   delimiter?: string;
   varied_style?: boolean;
   preserve_nested_numbering?: boolean;
+  level_styles?: string;
 }
 
 export const EXTERNAL_MARKDOWN_PREVIEW_STYLE = {
