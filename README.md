@@ -1,7 +1,3 @@
-# ⚠️ Notice
-I'm unable to find the time to keep this repository well maintained, and up-to-date with Obsidian. Life gets in the way. This plugin should be forked/rebuilt by someone who is willing to find the time to build a plugin that the Obsidian community deserves. 
-
-
 # Obsidian Dynamic ToC
 
 An Obsidian plugin to generate Tables of Contents that stay up to date with your document outline. Heavily inspired from [hipstersmoothie/obsidian-plugin-toc](https://github.com/hipstersmoothie/obsidian-plugin-toc)
@@ -49,6 +45,7 @@ title: string (default: undefined)
 allow_inconsistent_headings: boolean (default: false)
 delimiter: string (default: |)
 varied_style: boolean (default: false)
+preserve_nested_numbering: boolean (default: false)
 ```
 ````
 

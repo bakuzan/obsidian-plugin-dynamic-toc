@@ -1,18 +1,21 @@
 import { Editor, MarkdownPostProcessorContext, Plugin } from "obsidian";
 import { parseConfig } from "./utils/config";
-import { ALL_MATCHERS, DEFAULT_SETTINGS } from "./constants";
+import { ALL_MATCHERS, DEFAULT_SETTINGS, TABLE_CLASS_NAME } from "./constants";
 import { CodeBlockRenderer } from "./renderers/code-block-renderer";
 import { DynamicTOCSettingsTab } from "./settings-tab";
 import {
   DynamicTOCSettings,
   ExternalMarkdownKey,
   EXTERNAL_MARKDOWN_PREVIEW_STYLE,
+  TableOptions,
 } from "./types";
 import { DynamicInjectionRenderer } from "./renderers/dynamic-injection-renderer";
 import { InsertCommandModal } from "./insert-command.modal";
 
 export default class DynamicTOCPlugin extends Plugin {
   settings: DynamicTOCSettings;
+  options: TableOptions;
+
   onload = async () => {
     await this.loadSettings();
     this.addSettingTab(new DynamicTOCSettingsTab(this.app, this));
@@ -27,12 +30,13 @@ export default class DynamicTOCPlugin extends Plugin {
         });
       },
     });
+
     this.registerMarkdownCodeBlockProcessor(
       "toc",
       (source: string, el: HTMLElement, ctx: MarkdownPostProcessorContext) => {
-        const options = parseConfig(source, this.settings);
+        this.options = parseConfig(source, this.settings);
         ctx.addChild(
-          new CodeBlockRenderer(this.app, options, ctx.sourcePath, el)
+          new CodeBlockRenderer(this.app, this.options, ctx.sourcePath, el)
         );
       }
     );
@@ -43,13 +47,21 @@ export default class DynamicTOCPlugin extends Plugin {
           this.settings.supportAllMatchers === true
             ? ALL_MATCHERS
             : [this.settings.externalStyle];
+
         for (let matcher of matchers as ExternalMarkdownKey[]) {
-          if (!matcher || matcher === "None") continue;
+          if (!matcher || matcher === "None") {
+            continue;
+          }
+
           const match = DynamicInjectionRenderer.findMatch(
             el,
             EXTERNAL_MARKDOWN_PREVIEW_STYLE[matcher as ExternalMarkdownKey]
           );
-          if (!match?.parentNode) continue;
+
+          if (!match?.parentNode) {
+            continue;
+          }
+
           ctx.addChild(
             new DynamicInjectionRenderer(
               this.app,
@@ -59,6 +71,23 @@ export default class DynamicTOCPlugin extends Plugin {
               match
             )
           );
+        }
+
+        // If this is the table of contents...
+        if (el.className && el.className.includes(TABLE_CLASS_NAME)) {
+          const preserveNestedNumbering =
+            this.options.preserve_nested_numbering ??
+            this.settings.preserve_nested_numbering;
+
+          if (preserveNestedNumbering) {
+            const nestedLists = Array.from(el.querySelectorAll("li > ol"));
+            let count = 1;
+
+            for (let list of nestedLists) {
+              list.setAttribute("start", count.toString());
+              count += list.children.length;
+            }
+          }
         }
       }
     );

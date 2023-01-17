@@ -152,5 +152,18 @@ export class DynamicTOCSettingsTab extends PluginSettingTab {
             await this.plugin.saveSettings();
           })
       );
+    new Setting(containerEl)
+      .setName("Enable preserve nested numbering")
+      .setDesc(
+        "Preserve nested numbering allows for any levels lower then 2 with list style number to continue the numbering from the previous nested list."
+      )
+      .addToggle((cb) =>
+        cb
+          .setValue(this.plugin.settings.preserve_nested_numbering)
+          .onChange(async (val) => {
+            this.plugin.settings.preserve_nested_numbering = val;
+            await this.plugin.saveSettings();
+          })
+      );
   }
 }
