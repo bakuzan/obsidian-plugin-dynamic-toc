@@ -14,13 +14,17 @@ export class Heading {
     return /\[\[(.*?)\]\]/.test(this.cached.heading);
   }
   get href(): string | null {
-    if (!this.isLink) return null;
+    if (!this.isLink) {
+      return null;
+    }
     const value = this.parseMarkdownLink(this.rawHeading);
     const parts = value.split('|');
     return `#${parts.join(' ')}`;
   }
   get markdownHref(): string | null {
-    if (!this.isLink) return `[[#${this.rawHeading}]]`;
+    if (!this.isLink) {
+      return `[[#${this.rawHeading}]]`;
+    }
     const value = this.parseMarkdownLink(this.rawHeading);
     const parts = value.split('|');
     const hasAlias = parts.length > 1;

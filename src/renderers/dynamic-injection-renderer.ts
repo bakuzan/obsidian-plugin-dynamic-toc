@@ -37,7 +37,9 @@ export class DynamicInjectionRenderer extends MarkdownRenderChild {
     this.render();
   };
   onFileChangeHandler = (file: TFile) => {
-    if (file.deleted || file.path !== this.filePath) return;
+    if (file.deleted || file.path !== this.filePath) {
+      return;
+    }
     this.render();
   };
 

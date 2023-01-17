@@ -49,7 +49,9 @@ export class CodeBlockRenderer extends MarkdownRenderChild {
   };
   onFileChangeHandler = (file: TFile) => {
     this.filePath = file.path;
-    if (file.deleted) return;
+    if (file.deleted) {
+      return;
+    }
     this.render();
   };
 

@@ -6,12 +6,16 @@ export function extractHeadings(
   fileMetaData: CachedMetadata,
   options: TableOptions
 ) {
-  if (!fileMetaData?.headings) return '';
+  if (!fileMetaData?.headings) {
+    return '';
+  }
   const { headings } = fileMetaData;
   const processableHeadings = headings.filter(
     (h) => !!h && h.level >= options.min_depth && h.level <= options.max_depth
   );
-  if (!processableHeadings.length) return '';
+  if (!processableHeadings.length) {
+    return '';
+  }
 
   const headingInstances = processableHeadings.map((h) => new Heading(h));
   if (options.style === 'inline') {
