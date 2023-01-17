@@ -10,7 +10,7 @@ export default function cssPath<T extends Element>(element: T) {
     let selector = el.nodeName.toLowerCase();
 
     if (el.id) {
-      selector += "#" + el.id;
+      selector += '#' + el.id;
       path.unshift(selector);
       break;
     } else {
@@ -24,7 +24,7 @@ export default function cssPath<T extends Element>(element: T) {
       }
 
       if (nth != 1) {
-        selector += ":nth-of-type(" + nth + ")";
+        selector += ':nth-of-type(' + nth + ')';
       }
     }
 
@@ -32,5 +32,5 @@ export default function cssPath<T extends Element>(element: T) {
     el = el.parentNode as Element;
   }
 
-  return path.join(" > ");
+  return path.join(' > ');
 }

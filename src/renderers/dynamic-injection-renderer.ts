@@ -1,7 +1,7 @@
-import { App, MarkdownRenderChild, MarkdownRenderer, TFile } from "obsidian";
-import { TABLE_CLASS_NAME, TABLE_CLASS_SELECTOR } from "src/constants";
-import { DynamicTOCSettings } from "../types";
-import { extractHeadings } from "../utils/extract-headings";
+import { App, MarkdownRenderChild, MarkdownRenderer, TFile } from 'obsidian';
+import { TABLE_CLASS_NAME, TABLE_CLASS_SELECTOR } from 'src/constants';
+import { DynamicTOCSettings } from '../types';
+import { extractHeadings } from '../utils/extract-headings';
 
 export class DynamicInjectionRenderer extends MarkdownRenderChild {
   constructor(
@@ -15,7 +15,7 @@ export class DynamicInjectionRenderer extends MarkdownRenderChild {
   }
   static findMatch(element: HTMLElement, text: string): HTMLElement | null {
     const match =
-      Array.from(element.querySelectorAll("p, span, a")).find((el) => {
+      Array.from(element.querySelectorAll('p, span, a')).find((el) => {
         return el.textContent.toLowerCase().includes(text.toLowerCase());
       }) || null;
     return match as HTMLElement | null;
@@ -24,13 +24,12 @@ export class DynamicInjectionRenderer extends MarkdownRenderChild {
     this.render();
     this.registerEvent(
       this.app.metadataCache.on(
-        //@ts-ignore
-        "dynamic-toc:settings",
+        'dynamic-toc:settings',
         this.onSettingsChangeHandler
       )
     );
     this.registerEvent(
-      this.app.metadataCache.on("changed", this.onFileChangeHandler)
+      this.app.metadataCache.on('changed', this.onFileChangeHandler)
     );
   }
 
@@ -47,7 +46,7 @@ export class DynamicInjectionRenderer extends MarkdownRenderChild {
       this.app.metadataCache.getCache(this.filePath),
       this.settings
     );
-    const newElement = document.createElement("div");
+    const newElement = document.createElement('div');
     newElement.classList.add(TABLE_CLASS_NAME);
     await MarkdownRenderer.renderMarkdown(
       headings,
@@ -56,7 +55,7 @@ export class DynamicInjectionRenderer extends MarkdownRenderChild {
       this
     );
     // Keep the match in the document as a hook but hide it
-    this.match.style.display = "none";
+    this.match.style.display = 'none';
     const existing = this.containerEl.querySelector(TABLE_CLASS_SELECTOR);
     // We need to keep cleaning up after ourselves on settings or file changes
     if (existing) {

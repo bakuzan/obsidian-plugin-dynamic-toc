@@ -1,5 +1,5 @@
-import { parseYaml } from "obsidian";
-import { DynamicTOCSettings, TableOptions } from "../types";
+import { parseYaml } from 'obsidian';
+import { DynamicTOCSettings, TableOptions } from '../types';
 /**
  * Merge settings and codeblock options taking truthy values
  * @param options - Code block options
@@ -13,10 +13,10 @@ export function mergeSettings(
   const merged = Object.assign({}, settings, options);
   return Object.keys(merged).reduce((acc, curr: keyof TableOptions) => {
     const value = options[curr];
-    const isEmptyValue = typeof value === "undefined" || value === null;
+    const isEmptyValue = typeof value === 'undefined' || value === null;
     return {
       ...acc,
-      [curr]: isEmptyValue ? settings[curr] : value,
+      [curr]: isEmptyValue ? settings[curr] : value
     };
   }, {} as TableOptions);
 }

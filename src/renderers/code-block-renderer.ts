@@ -3,12 +3,12 @@ import {
   MarkdownRenderChild,
   MarkdownRenderer,
   TFile,
-  WorkspaceLeaf,
-} from "obsidian";
-import { mergeSettings } from "../utils/config";
-import { extractHeadings } from "../utils/extract-headings";
-import { DynamicTOCSettings, TableOptions } from "../types";
-import { TABLE_CLASS_NAME } from "src/constants";
+  WorkspaceLeaf
+} from 'obsidian';
+import { mergeSettings } from '../utils/config';
+import { extractHeadings } from '../utils/extract-headings';
+import { DynamicTOCSettings, TableOptions } from '../types';
+import { TABLE_CLASS_NAME } from 'src/constants';
 
 export class CodeBlockRenderer extends MarkdownRenderChild {
   constructor(
@@ -23,19 +23,18 @@ export class CodeBlockRenderer extends MarkdownRenderChild {
     await this.render();
     this.registerEvent(
       this.app.metadataCache.on(
-        //@ts-ignore
-        "dynamic-toc:settings",
+        'dynamic-toc:settings',
         this.onSettingsChangeHandler
       )
     );
     this.registerEvent(
       this.app.workspace.on(
-        "active-leaf-change",
+        'active-leaf-change',
         this.onActiveLeafChangeHandler
       )
     );
     this.registerEvent(
-      this.app.metadataCache.on("changed", this.onFileChangeHandler)
+      this.app.metadataCache.on('changed', this.onFileChangeHandler)
     );
   }
 

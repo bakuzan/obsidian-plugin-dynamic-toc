@@ -1,4 +1,4 @@
-import { HeadingCache } from "obsidian";
+import { HeadingCache } from 'obsidian';
 // TODO refactor this
 export class Heading {
   constructor(private cached: HeadingCache) {}
@@ -16,13 +16,13 @@ export class Heading {
   get href(): string | null {
     if (!this.isLink) return null;
     const value = this.parseMarkdownLink(this.rawHeading);
-    const parts = value.split("|");
-    return `#${parts.join(" ")}`;
+    const parts = value.split('|');
+    return `#${parts.join(' ')}`;
   }
   get markdownHref(): string | null {
     if (!this.isLink) return `[[#${this.rawHeading}]]`;
     const value = this.parseMarkdownLink(this.rawHeading);
-    const parts = value.split("|");
+    const parts = value.split('|');
     const hasAlias = parts.length > 1;
     if (!hasAlias) {
       return `[[#${parts[0]}]]`;
@@ -31,7 +31,7 @@ export class Heading {
     // The way obsidian needs to render the link is to have the link be
     // the header + alias such as [[#Something Alt Text]]
     // Then we need to append the actual alias
-    const link = parts.join(" ");
+    const link = parts.join(' ');
     return `[[#${link}|${parts[1]}]]`;
   }
 

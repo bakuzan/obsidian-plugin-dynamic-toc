@@ -1,20 +1,20 @@
 import {
   DynamicTOCSettings,
   ExternalMarkdownKey,
-  EXTERNAL_MARKDOWN_PREVIEW_STYLE,
-} from "./types";
+  EXTERNAL_MARKDOWN_PREVIEW_STYLE
+} from './types';
 
 export const DEFAULT_SETTINGS: DynamicTOCSettings = {
-  style: "bullet",
+  style: 'bullet',
   min_depth: 2,
   max_depth: 6,
-  externalStyle: "None",
+  externalStyle: 'None',
   supportAllMatchers: false,
   allow_inconsistent_headings: false,
-  preserve_nested_numbering: false,
+  preserve_nested_numbering: false
 };
 
-export const TABLE_CLASS_NAME = "dynamic-toc";
+export const TABLE_CLASS_NAME = 'dynamic-toc';
 export const TABLE_CLASS_SELECTOR = `.${TABLE_CLASS_NAME}`;
 
 export const ALL_MATCHERS = Object.keys(

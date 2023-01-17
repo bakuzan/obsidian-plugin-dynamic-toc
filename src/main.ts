@@ -1,17 +1,17 @@
-import { Editor, MarkdownPostProcessorContext, Plugin } from "obsidian";
-import { parseConfig } from "./utils/config";
-import { ALL_MATCHERS, DEFAULT_SETTINGS, TABLE_CLASS_NAME } from "./constants";
-import { CodeBlockRenderer } from "./renderers/code-block-renderer";
-import { DynamicTOCSettingsTab } from "./settings-tab";
+import { Editor, MarkdownPostProcessorContext, Plugin } from 'obsidian';
+import { parseConfig } from './utils/config';
+import { ALL_MATCHERS, DEFAULT_SETTINGS, TABLE_CLASS_NAME } from './constants';
+import { CodeBlockRenderer } from './renderers/code-block-renderer';
+import { DynamicTOCSettingsTab } from './settings-tab';
 import {
   DynamicTOCSettings,
   ExternalMarkdownKey,
   EXTERNAL_MARKDOWN_PREVIEW_STYLE,
-  TableOptions,
-} from "./types";
-import { DynamicInjectionRenderer } from "./renderers/dynamic-injection-renderer";
-import { InsertCommandModal } from "./insert-command.modal";
-import cssPath from "./utils/cssPath";
+  TableOptions
+} from './types';
+import { DynamicInjectionRenderer } from './renderers/dynamic-injection-renderer';
+import { InsertCommandModal } from './insert-command.modal';
+import cssPath from './utils/cssPath';
 
 export default class DynamicTOCPlugin extends Plugin {
   settings: DynamicTOCSettings;
@@ -21,19 +21,19 @@ export default class DynamicTOCPlugin extends Plugin {
     await this.loadSettings();
     this.addSettingTab(new DynamicTOCSettingsTab(this.app, this));
     this.addCommand({
-      id: "dynamic-toc-insert-command",
-      name: "Insert Table of Contents",
+      id: 'dynamic-toc-insert-command',
+      name: 'Insert Table of Contents',
       editorCallback: (editor: Editor) => {
         const modal = new InsertCommandModal(this.app, this);
         modal.start((text: string) => {
           editor.setCursor(editor.getCursor().line, 0);
           editor.replaceSelection(text);
         });
-      },
+      }
     });
 
     this.registerMarkdownCodeBlockProcessor(
-      "toc",
+      'toc',
       (source: string, el: HTMLElement, ctx: MarkdownPostProcessorContext) => {
         this.options = parseConfig(source, this.settings);
         ctx.addChild(
@@ -49,8 +49,8 @@ export default class DynamicTOCPlugin extends Plugin {
             ? ALL_MATCHERS
             : [this.settings.externalStyle];
 
-        for (let matcher of matchers as ExternalMarkdownKey[]) {
-          if (!matcher || matcher === "None") {
+        for (const matcher of matchers as ExternalMarkdownKey[]) {
+          if (!matcher || matcher === 'None') {
             continue;
           }
 
@@ -81,17 +81,17 @@ export default class DynamicTOCPlugin extends Plugin {
             this.settings.preserve_nested_numbering;
 
           if (preserveNestedNumbering) {
-            const nestedLists = Array.from(el.querySelectorAll("li > ol"));
+            const nestedLists = Array.from(el.querySelectorAll('li > ol'));
             let count = 1;
 
-            for (let list of nestedLists) {
+            for (const list of nestedLists) {
               const elPath = cssPath(list);
               const depth = elPath.match(/ol/g).length;
               if (depth > 2) {
                 continue;
               }
 
-              list.setAttribute("start", count.toString());
+              list.setAttribute('start', count.toString());
               count += list.children.length;
             }
           }
@@ -106,6 +106,6 @@ export default class DynamicTOCPlugin extends Plugin {
 
   saveSettings = async () => {
     await this.saveData(this.settings);
-    this.app.metadataCache.trigger("dynamic-toc:settings", this.settings);
+    this.app.metadataCache.trigger('dynamic-toc:settings', this.settings);
   };
 }
