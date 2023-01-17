@@ -184,6 +184,23 @@ With this option enabled, it will produce the following table of contents:
 
 > ⚠️ Notice that the Level 4 and Level 3 headings are at the same depth
 
+### Preserve Nested Numbering
+
+You can preserve the numbering of lists below level 2 in the table of contents by using the Preserve Nested Numbering option in setttings or inline inside a codeblock for example:
+
+````markdown
+```toc
+title: "## Table of Contents"
+preserve_nested_numbering: true
+```
+````
+
+Without the option enabled:
+![](media/preserve-nested-numbering-off.jpg)
+
+With the option enabled:
+![](media/preserve-nested-numbering-on.jpg)
+
 ## Contributing
 
 ```bash
