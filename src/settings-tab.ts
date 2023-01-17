@@ -155,7 +155,7 @@ export class DynamicTOCSettingsTab extends PluginSettingTab {
     new Setting(containerEl)
       .setName("Enable preserve nested numbering")
       .setDesc(
-        "Preserve nested numbering allows for any levels lower then 2 with list style number to continue the numbering from the previous nested list."
+        "Preserve nested numbering allows for level 2 nested lists with list style number to continue the numbering from the previous nested list."
       )
       .addToggle((cb) =>
         cb

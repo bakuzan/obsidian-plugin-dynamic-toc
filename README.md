@@ -186,7 +186,7 @@ With this option enabled, it will produce the following table of contents:
 
 ### Preserve Nested Numbering
 
-You can preserve the numbering of lists below level 2 in the table of contents by using the Preserve Nested Numbering option in setttings or inline inside a codeblock for example:
+You can preserve the numbering of level 2 nested lists in the table of contents by using the Preserve Nested Numbering option in setttings or inline inside a codeblock for example:
 
 ````markdown
 ```toc

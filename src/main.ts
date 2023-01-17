@@ -11,6 +11,7 @@ import {
 } from "./types";
 import { DynamicInjectionRenderer } from "./renderers/dynamic-injection-renderer";
 import { InsertCommandModal } from "./insert-command.modal";
+import cssPath from "./utils/cssPath";
 
 export default class DynamicTOCPlugin extends Plugin {
   settings: DynamicTOCSettings;
@@ -84,6 +85,12 @@ export default class DynamicTOCPlugin extends Plugin {
             let count = 1;
 
             for (let list of nestedLists) {
+              const elPath = cssPath(list);
+              const depth = elPath.match(/ol/g).length;
+              if (depth > 2) {
+                continue;
+              }
+
               list.setAttribute("start", count.toString());
               count += list.children.length;
             }
