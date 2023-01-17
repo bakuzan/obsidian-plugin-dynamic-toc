@@ -23,6 +23,8 @@ export class CodeBlockRenderer extends MarkdownRenderChild {
     await this.render();
     this.registerEvent(
       this.app.metadataCache.on(
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         'dynamic-toc:settings',
         this.onSettingsChangeHandler
       )
