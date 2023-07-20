@@ -20,3 +20,5 @@ export const TABLE_CLASS_SELECTOR = `.${TABLE_CLASS_NAME}`;
 export const ALL_MATCHERS = Object.keys(
   EXTERNAL_MARKDOWN_PREVIEW_STYLE
 ) as ExternalMarkdownKey[];
+
+export const ORDERED_LIST_STYLES = ['number', 'roman', 'alpha'];

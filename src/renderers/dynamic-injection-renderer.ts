@@ -65,6 +65,7 @@ export class DynamicInjectionRenderer extends MarkdownRenderChild {
     if (existing) {
       this.containerEl.removeChild(existing);
     }
+
     // Attach the table to the parent of the match
     this.match.parentNode.appendChild(newElement);
   }

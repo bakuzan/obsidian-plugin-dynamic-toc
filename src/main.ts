@@ -12,6 +12,7 @@ import {
 import { DynamicInjectionRenderer } from './renderers/dynamic-injection-renderer';
 import { InsertCommandModal } from './insert-command.modal';
 import cssPath from './utils/cssPath';
+import { setListType } from './utils/listType';
 
 export default class DynamicTOCPlugin extends Plugin {
   settings: DynamicTOCSettings;
@@ -77,7 +78,7 @@ export default class DynamicTOCPlugin extends Plugin {
         // If this is the table of contents...
         if (el.className && el.className.includes(TABLE_CLASS_NAME)) {
           const preserveNestedNumbering =
-            this.options.preserve_nested_numbering ??
+            this.options?.preserve_nested_numbering ??
             this.settings.preserve_nested_numbering;
 
           if (preserveNestedNumbering) {
@@ -95,6 +96,12 @@ export default class DynamicTOCPlugin extends Plugin {
               count += list.children.length;
             }
           }
+
+          setListType(
+            el,
+            this.options?.style ?? this.settings.style,
+            this.options?.level_styles ?? this.settings.level_styles
+          );
         }
       }
     );

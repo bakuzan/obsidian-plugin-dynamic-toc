@@ -60,10 +60,12 @@ export class CodeBlockRenderer extends MarkdownRenderChild {
   async render(configOverride?: TableOptions) {
     this.container.empty();
     this.container.classList.add(TABLE_CLASS_NAME);
+    const settings = configOverride || this.config;
     const headings = extractHeadings(
       this.app.metadataCache.getCache(this.filePath),
-      configOverride || this.config
+      settings
     );
+
     await MarkdownRenderer.renderMarkdown(
       headings,
       this.container,

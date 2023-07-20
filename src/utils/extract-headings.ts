@@ -1,6 +1,7 @@
 import { CachedMetadata } from 'obsidian';
 import { Heading } from '../models/heading';
 import { TableOptions } from '../types';
+import { ORDERED_LIST_STYLES } from 'src/constants';
 
 export function extractHeadings(
   fileMetaData: CachedMetadata,
@@ -30,7 +31,10 @@ function getIndicator(
   firstLevel: number,
   options: TableOptions
 ) {
-  const defaultIndicator = (options.style === 'number' && '1.') || '-';
+  const defaultIndicator = ORDERED_LIST_STYLES.includes(options.style)
+    ? '1.'
+    : '-';
+
   if (!options.varied_style) {
     return defaultIndicator;
   }
@@ -41,7 +45,7 @@ function getIndicator(
 
   if (levelStyles.length) {
     const ls = levelStyles[heading.level - firstLevel];
-    return ls === 'number' ? '1.' : '-';
+    return ORDERED_LIST_STYLES.includes(ls) ? '1.' : '-';
   }
 
   // if the heading is at the same level as the first heading and varied_style is true, then only set the first indicator to the selected style
@@ -49,7 +53,7 @@ function getIndicator(
     return defaultIndicator;
   }
 
-  return options.style === 'number' ? '-' : '1.';
+  return ORDERED_LIST_STYLES.includes(options.style) ? '-' : '1.';
 }
 
 /**
