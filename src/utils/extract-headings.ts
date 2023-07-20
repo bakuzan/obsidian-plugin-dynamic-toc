@@ -1,7 +1,7 @@
 import { CachedMetadata } from 'obsidian';
 import { Heading } from '../models/heading';
 import { TableOptions } from '../types';
-import { ORDERED_LIST_STYLES } from 'src/constants';
+import { ORDERED_LIST_STYLES } from '../constants';
 
 export function extractHeadings(
   fileMetaData: CachedMetadata,
